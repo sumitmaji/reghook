@@ -34,7 +34,7 @@ app.post('/event', (req, res) => {
 });
 
 app.post('/deploy', (req, res) => {
-  console.log(req.body.toString('utf8'));
+  console.log(req.body.payload);
   res.send({
     Hi: 'There'
   })
