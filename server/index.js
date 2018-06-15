@@ -10,10 +10,10 @@ app.use(bodyParser.urlencoded({
   extended: false
 }))
 //To parse vnd.docker.distribution.events.v1+json data
-app.use(bodyParser.raw({
-  // type: 'application/vnd.docker.distribution.events.v1+json'
-  type: 'application/json'
-}));
+// app.use(bodyParser.raw({
+//   type: 'application/vnd.docker.distribution.events.v1+json'
+// }));
+app.use(bodyParser.json());
 app.use(function(req, res, next) {
   var data = '';
   req.setEncoding('utf8');
