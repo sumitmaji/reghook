@@ -34,7 +34,7 @@ app.post('/event', (req, res) => {
 });
 
 app.post('/deploy', (req, res) => {
-  console.log(req.body.payload);
+  console.log(req.body);
   res.send({
     Hi: 'There'
   })
