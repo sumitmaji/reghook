@@ -34,7 +34,9 @@ pushd /$BUILD_PATH/$NUMBER
 git clone -b $BRANCH $URL/${REP}.git
 pushd $REP
 source config
-helm del --purge $RELEASE_NAME
-helm install $PATH_TO_CHART --name $RELEASE_NAME
+if [[ $DEPLOY == "true" ]]; then
+  helm del --purge $RELEASE_NAME
+  helm install $PATH_TO_CHART --name $RELEASE_NAME
+fi
 popd
 popd
