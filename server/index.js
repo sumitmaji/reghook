@@ -11,7 +11,8 @@ app.use(bodyParser.urlencoded({
 }))
 //To parse vnd.docker.distribution.events.v1+json data
 app.use(bodyParser.raw({
-  type: 'application/vnd.docker.distribution.events.v1+json'
+  // type: 'application/vnd.docker.distribution.events.v1+json'
+  type: 'application/json'
 }));
 app.use(function(req, res, next) {
   var data = '';
@@ -26,6 +27,13 @@ app.use(function(req, res, next) {
 });
 
 app.post('/event', (req, res) => {
+  console.log(req.body.toString('utf8'));
+  res.send({
+    Hi: 'There'
+  })
+});
+
+app.post('/deploy', (req, res) => {
   console.log(req.body.toString('utf8'));
   res.send({
     Hi: 'There'
