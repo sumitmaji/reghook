@@ -1,3 +1,3 @@
 #!/bin/bash
 source config
-docker build -t sumit/registry .
+docker build -t $IMAGE_NAME .
