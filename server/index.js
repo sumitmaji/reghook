@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
-
+const shell = require('shelljs')
 
 //To parse URL encoded data
 app.use(bodyParser.urlencoded({
@@ -36,16 +36,36 @@ app.post('/event', (req, res) => {
 
 app.post('/deploy', (req, res) => {
   var data = JSON.parse(req.body.toString('utf8'));
-  console.log(data.payload)
-  res.send({
-    Hi: 'There'
-  })
+  var {
+    url,
+    rep
+  } = data.payload
+  execAsync(`./scripts/build.sh -r ${rep} -u ${url}`, {
+      silent: false,
+      cwd: '.'
+    })
+    .then(stdout => {
+      console.log('Success')
+    })
+    .catch(err => console.log(err));
+  res.send('ok')
 });
 
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(403).send(err);
 })
+
+
+function execAsync(cmd, opts = {}) {
+  return new Promise(function(resolve, reject) {
+    // Execute the command, reject if we exit non-zero (i.e. error)
+    shell.exec(cmd, opts, function(code, stdout, stderr) {
+      if (code != 0) return reject(new Error(stderr));
+      return resolve(stdout);
+    });
+  });
+}
 
 const PORT = process.env.PORT || 5003
 app.listen(PORT);

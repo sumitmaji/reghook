@@ -3,6 +3,30 @@
 
 source ./scripts/config
 : ${BUILD_PATH:=/tmp}
+: ${BRANCH:=master}
+
+while [[ $# -gt 0 ]]
+do
+key="$1"
+case $key in
+ -r|--repository)
+ REP="$2"
+ shift
+ shift
+ ;;
+ -u|--url)
+ URL="$2"
+ shift
+ shift
+ ;;
+ -b|--branch)
+ BRANCH="$2"
+ shift
+ shift
+ ;;
+
+esac
+done
 
 NUMBER=$[ ( $RANDOM % 100 )  + 1 ]
 mkdir /$BUILD_PATH/$NUMBER
