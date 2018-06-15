@@ -34,13 +34,15 @@ app.post('/event', (req, res) => {
 });
 
 app.post('/deploy', (req, res) => {
-  console.log(req.body);
+  var data = JSON.parse(req.body);
+  console.log(data.payload)
   res.send({
     Hi: 'There'
   })
 });
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(403).send(err);
 })
 
