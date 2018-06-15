@@ -35,7 +35,7 @@ app.post('/event', (req, res) => {
 });
 
 app.post('/deploy', (req, res) => {
-  var data = JSON.parse(req.body);
+  var data = JSON.parse(req.body.toString('utf8'));
   console.log(data.payload)
   res.send({
     Hi: 'There'
