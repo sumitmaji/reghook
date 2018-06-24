@@ -38,9 +38,10 @@ app.post('/deploy', (req, res) => {
   var data = JSON.parse(req.body.toString('utf8'));
   var {
     url,
-    rep
+    rep,
+    branch
   } = data.payload
-  execAsync(`./scripts/build.sh -r ${rep} -u ${url}`, {
+  execAsync(`./scripts/build.sh -r ${rep} -u ${url} -b ${branch}`, {
       silent: false,
       cwd: '.'
     })
